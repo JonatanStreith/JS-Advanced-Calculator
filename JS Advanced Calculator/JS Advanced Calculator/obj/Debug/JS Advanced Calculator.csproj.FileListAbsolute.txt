@@ -1,0 +1,7 @@
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\bin\Debug\JS Advanced Calculator.exe.config
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\bin\Debug\JS Advanced Calculator.exe
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\bin\Debug\JS Advanced Calculator.pdb
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\obj\Debug\JS Advanced Calculator.csprojResolveAssemblyReference.cache
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\obj\Debug\JS Advanced Calculator.csproj.CoreCompileInputs.cache
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\obj\Debug\JS Advanced Calculator.exe
+C:\Users\Lexicon\source\repos\JS-Advanced-Calculator\JS Advanced Calculator\JS Advanced Calculator\obj\Debug\JS Advanced Calculator.pdb
