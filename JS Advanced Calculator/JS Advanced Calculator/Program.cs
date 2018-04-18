@@ -23,7 +23,9 @@ namespace JS_Advanced_Calculator
 
                 List<string> firstNum = new List<string>();
                 List<string> secondNum = new List<string>();
-                Dictionary<int, string> equation = new Dictionary<int, string>();
+
+                string[] equation = new string[3];
+
 
 
 
@@ -46,10 +48,9 @@ namespace JS_Advanced_Calculator
 
                 } while (keyPressed.Key != ConsoleKey.Enter);
 
-                equation.Add(1, String.Join(String.Empty, firstNum));   //Adds the first number to the equation
+                equation[0] = String.Join(String.Empty, firstNum);   //Adds the first number to the equation
 
-                Console.WriteLine(equation[1]);
-
+                Console.Write($"{equation[0]} ");
 
 
 
@@ -57,12 +58,12 @@ namespace JS_Advanced_Calculator
 
 
                 keyPressed = Console.ReadKey(true);
-                if (keyPressed.Key != ConsoleKey.Escape)
+                if (keyPressed.Key == ConsoleKey.Escape)
                 { AutoQuit(); }
                 else
-                { equation.Add(2, keyPressed.KeyChar.ToString()); }     //Adds the operator
+                { equation[1] = keyPressed.KeyChar.ToString(); }     //Adds the operator
 
-
+                Console.Write($"{equation[1]} ");
 
 
 
@@ -80,8 +81,9 @@ namespace JS_Advanced_Calculator
 
                 } while (keyPressed.Key != ConsoleKey.Enter);
 
-                equation.Add(3, String.Join(String.Empty, secondNum));   //Adds the second number to the equation
+                equation[2] = String.Join(String.Empty, secondNum);   //Adds the second number to the equation
 
+                Console.WriteLine(equation[2]);
 
 
                 double result = CompleteEquation(equation);
@@ -96,9 +98,42 @@ namespace JS_Advanced_Calculator
             Console.ReadLine();
         }
 
-        static double CompleteEquation(Dictionary<int, string> equation)         //This takes an equation and produces the result
+        static double CompleteEquation(string[] equation)         //This takes an equation and produces the result
         {
-            return 5;
+            bool firstLegit = true;     //Tracks whether first input is legitimate or not.
+            bool secondLegit = true;
+            double firstNum;
+            double secondNum;
+            double result;
+
+
+            firstLegit = double.TryParse(equation[0], out firstNum);        //Converts the inputs to doubles, if legitimate
+            secondLegit = double.TryParse(equation[2], out secondNum);
+
+            switch (equation[1])
+            {
+                case "+":
+                    result = firstNum + secondNum;
+                    break;
+                case "-":
+                    result = firstNum - secondNum;
+                    break;
+                case "*":
+                    result = firstNum * secondNum;
+                    break;
+                case "/":
+                    result = firstNum / secondNum;
+                    break;
+                case "%":
+                    result = firstNum % secondNum;
+                    break;
+
+                default:
+                    result = 0;
+                    break;
+            }
+
+            return result;
         }
 
         static void AutoQuit()
