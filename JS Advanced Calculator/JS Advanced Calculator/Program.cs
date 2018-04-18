@@ -13,6 +13,13 @@ namespace JS_Advanced_Calculator
 
             ConsoleKeyInfo keyPressed;
 
+            string realKey;
+
+            string[] realNrs = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };        //Real numbers that can be used
+
+            bool isRealNumber;
+
+
 
             Console.WriteLine("Welcome to the JS-Calc 3000, believed to be the most powerful calculator in the world!");
             Console.WriteLine("To perform a calculation, simply enter the first number followed by ENTER, then an arithmetic operator, then the second number, followed by ENTER. To quit, press ESCAPE. We take no responsibility for the consequences of deviating from these instructions.");
@@ -23,11 +30,10 @@ namespace JS_Advanced_Calculator
 
                 List<string> firstNum = new List<string>();
                 List<string> secondNum = new List<string>();
-                Dictionary<int, string> equation = new Dictionary<int, string>();
+                string[] equation = new string[3];
 
 
-
-
+                //if(realKey == ("0", "1", "2"...)
 
 
 
@@ -36,17 +42,33 @@ namespace JS_Advanced_Calculator
                 {
                     //Input first value, by entering keys until pressing Enter
                     keyPressed = Console.ReadKey(true);
+                    realKey = keyPressed.KeyChar.ToString();
 
-                    if (keyPressed.Key == ConsoleKey.Escape)
+                    if (keyPressed.Key == ConsoleKey.Escape)        //Checks if you pressed Escape
                     { AutoQuit(); }
-                    else if (keyPressed.Key != ConsoleKey.Enter)
+
+                    isRealNumber = false;               //Resets the bool
+
+
+                    for (int i = 0; i < 10; i++)        //Checks if the input is on the list of legitimate numbers; if so, flags it as true
                     {
-                        firstNum.Add(keyPressed.KeyChar.ToString());     //Adds the pressed key to the firstNum list
+                        if (realKey == realNrs[i])
+                        {
+                            isRealNumber = true;
+                        }
                     }
 
-                } while (keyPressed.Key != ConsoleKey.Enter);
+                    if (isRealNumber)
+                    {
+                        firstNum.Add(realKey);     //Adds the pressed key to the firstNum list
+                    }
 
-                equation.Add(1, String.Join(String.Empty, firstNum));   //Adds the first number to the equation
+
+
+
+                } while (isRealNumber);
+
+                equation[0] = String.Join(String.Empty, firstNum);   //Adds the first number to the equation
 
                 Console.WriteLine(equation[1]);
 
@@ -60,7 +82,7 @@ namespace JS_Advanced_Calculator
                 if (keyPressed.Key != ConsoleKey.Escape)
                 { AutoQuit(); }
                 else
-                { equation.Add(2, keyPressed.KeyChar.ToString()); }     //Adds the operator
+                { equation[1] = keyPressed.KeyChar.ToString(); }     //Adds the operator
 
 
 
@@ -70,6 +92,7 @@ namespace JS_Advanced_Calculator
                 {
                     //Input first value, by entering keys until pressing Enter
                     keyPressed = Console.ReadKey(true);
+                    realKey = keyPressed.KeyChar.ToString();
 
                     if (keyPressed.Key == ConsoleKey.Escape)
                     { AutoQuit(); }
@@ -80,7 +103,7 @@ namespace JS_Advanced_Calculator
 
                 } while (keyPressed.Key != ConsoleKey.Enter);
 
-                equation.Add(3, String.Join(String.Empty, secondNum));   //Adds the second number to the equation
+                equation[2] = String.Join(String.Empty, secondNum);   //Adds the second number to the equation
 
 
 
@@ -96,11 +119,43 @@ namespace JS_Advanced_Calculator
             Console.ReadLine();
         }
 
-        static double CompleteEquation(Dictionary<int, string> equation)         //This takes an equation and produces the result
+        static double CompleteEquation(string[] equation)         //This takes an equation and produces the result
         {
-            return 5;
-        }
+            bool firstLegit = true;     //Tracks whether first input is legitimate or not.
+            bool secondLegit = true;
+            double firstNum;
+            double secondNum;
+            double result;
 
+
+            firstLegit = double.TryParse(equation[0], out firstNum);        //Converts the inputs to doubles, if legitimate
+            secondLegit = double.TryParse(equation[2], out secondNum);
+
+            switch (equation[1])
+            {
+                case "+":
+                    result = firstNum + secondNum;
+                    break;
+                case "-":
+                    result = firstNum - secondNum;
+                    break;
+                case "*":
+                    result = firstNum * secondNum;
+                    break;
+                case "/":
+                    result = firstNum / secondNum;
+                    break;
+                case "%":
+                    result = firstNum % secondNum;
+                    break;
+
+                default:
+                    result = 0;
+                    break;
+            }
+
+            return result;
+        }
         static void AutoQuit()
         {
             Console.WriteLine("The calculator will now shut down.");
