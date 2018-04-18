@@ -8,6 +8,7 @@ namespace JS_Advanced_Calculator
 {
     class Program
     {
+
         static void Main(string[] args)
         {
 
@@ -17,12 +18,16 @@ namespace JS_Advanced_Calculator
 
             string[] realNrs = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };        //Real numbers that can be used
 
-            bool isRealNumber;
+            string[] realOperators = { "+", "-", "*", "/", "%" };
+
+            bool isReal;
 
 
 
             Console.WriteLine("Welcome to the JS-Calc 3000, believed to be the most powerful calculator in the world!");
-            Console.WriteLine("To perform a calculation, simply enter the first number followed by ENTER, then an arithmetic operator, then the second number, followed by ENTER. To quit, press ESCAPE. We take no responsibility for the consequences of deviating from these instructions.");
+
+            Console.WriteLine("Enter the first number, followed by an arithmetic operator, then the second number. Finish with ENTER. \nIllegal operators will return zero. To quit, press ESCAPE.");
+            Console.WriteLine();
 
             do
             {
@@ -33,7 +38,53 @@ namespace JS_Advanced_Calculator
                 string[] equation = new string[3];
 
 
-                //if(realKey == ("0", "1", "2"...)
+
+
+
+
+                do
+                {
+                    //Input first value, by entering keys until pressing a non-number
+                    keyPressed = Console.ReadKey(true);
+                    realKey = keyPressed.KeyChar.ToString();
+
+                    if (keyPressed.Key == ConsoleKey.Escape)        //Checks if you pressed Escape
+                    { AutoQuit(); }
+
+                    isReal = false;               //Resets the bool
+
+                    for (int i = 0; i < 10; i++)        //Checks if the input is on the list of legitimate numbers; if so, flags it as true
+                    {
+                        if (realKey == realNrs[i])
+                        { isReal = true; }
+                    }
+
+                    if (isReal)
+                    { firstNum.Add(realKey); }   //Adds the pressed key to the firstNum list
+
+
+                } while (isReal);
+
+                equation[0] = String.Join(String.Empty, firstNum);   //Adds the first number to the equation
+                Console.Write($"{equation[0]} ");
+
+
+
+
+
+
+
+                isReal = false;
+                for (int i = 0; i < realOperators.Length; i++)        //Checks if the input is on the list of legitimate operators; if so, flags it as true
+                {
+                    if (realKey == realOperators[i])
+                    { isReal = true; }
+                }
+
+                if (isReal)
+                { equation[1] = realKey; }     //Adds the operator, if legit
+
+                Console.Write($"{realKey} ");
 
 
 
@@ -47,69 +98,28 @@ namespace JS_Advanced_Calculator
                     if (keyPressed.Key == ConsoleKey.Escape)        //Checks if you pressed Escape
                     { AutoQuit(); }
 
-                    isRealNumber = false;               //Resets the bool
-
+                    isReal = false;               //Resets the bool
 
                     for (int i = 0; i < 10; i++)        //Checks if the input is on the list of legitimate numbers; if so, flags it as true
                     {
                         if (realKey == realNrs[i])
-                        {
-                            isRealNumber = true;
-                        }
+                        {                            isReal = true;                        }
                     }
 
-                    if (isRealNumber)
-                    {
-                        firstNum.Add(realKey);     //Adds the pressed key to the firstNum list
-                    }
-
-
-
-
-                } while (isRealNumber);
-
-                equation[0] = String.Join(String.Empty, firstNum);   //Adds the first number to the equation
-
-                Console.WriteLine(equation[1]);
-
-
-
-
-
-
-
-                keyPressed = Console.ReadKey(true);
-                if (keyPressed.Key != ConsoleKey.Escape)
-                { AutoQuit(); }
-                else
-                { equation[1] = keyPressed.KeyChar.ToString(); }     //Adds the operator
-
-
-
-
-
-                do
-                {
-                    //Input first value, by entering keys until pressing Enter
-                    keyPressed = Console.ReadKey(true);
-                    realKey = keyPressed.KeyChar.ToString();
-
-                    if (keyPressed.Key == ConsoleKey.Escape)
-                    { AutoQuit(); }
-                    else if (keyPressed.Key != ConsoleKey.Enter)
-                    {
-                        secondNum.Add(keyPressed.KeyChar.ToString());     //Adds the pressed key to the secondNum list
-                    }
-
-                } while (keyPressed.Key != ConsoleKey.Enter);
+                    if (isReal)
+                    { secondNum.Add(realKey); }   //Adds the pressed key to the firstNum list
+                    
+                } while (isReal);
 
                 equation[2] = String.Join(String.Empty, secondNum);   //Adds the second number to the equation
+
+                Console.Write($"{equation[2]} = ");
 
 
 
                 double result = CompleteEquation(equation);
 
-                Console.WriteLine($"Result: {result}");
+                Console.WriteLine($"{result}");
 
             } while (keyPressed.Key != ConsoleKey.Escape);
 
@@ -158,6 +168,7 @@ namespace JS_Advanced_Calculator
         }
         static void AutoQuit()
         {
+            Console.WriteLine();
             Console.WriteLine("The calculator will now shut down.");
             Console.ReadLine();
             Environment.Exit(0);
