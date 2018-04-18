@@ -18,7 +18,7 @@ namespace JS_Advanced_Calculator
 
             string[] realNrs = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };        //Real numbers that can be used
 
-            string[] realOperators = { "+", "-", "*", "/", "%" };
+            string[] realOperators = { "+", "-", "*", "/", "%" };                           //Real arithmetic operators that can be used
 
             bool isReal;
 
@@ -103,12 +103,12 @@ namespace JS_Advanced_Calculator
                     for (int i = 0; i < 10; i++)        //Checks if the input is on the list of legitimate numbers; if so, flags it as true
                     {
                         if (realKey == realNrs[i])
-                        {                            isReal = true;                        }
+                        { isReal = true; }
                     }
 
                     if (isReal)
                     { secondNum.Add(realKey); }   //Adds the pressed key to the firstNum list
-                    
+
                 } while (isReal);
 
                 equation[2] = String.Join(String.Empty, secondNum);   //Adds the second number to the equation
